@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DinApp - Digital Financial Marketplace
 
 DinApp is a digital financial services platform for Papua New Guinea, providing wallets, payments, and creator monetization.
@@ -27,3 +28,7 @@ docker-compose up --build
 ## Future Work (Sprint 1+)
 - **Mobile App**: A Flutter application will be integrated in future sprints for native mobile support.
 - **Auth**: OTP and PIN logic will be implemented in the Backend.
+=======
+# DinApp
+DinApp
+>>>>>>> 1bb36638f316f66c14f7eee80d096803e4f4655f

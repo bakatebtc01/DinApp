@@ -17,7 +17,7 @@ export const initiateLoanOffer = async (
     const lenderWallet = await walletService.getWalletByUserAndType(lenderUserId, 'personal');
     // Platform usually has a dedicated escrow wallet or user has one
     // For this MVP, we use the Platform Escrow wallet
-    const platformEscrowWallet = await walletService.getWalletByUserAndType('platform_admin_id', 'escrow');
+    const platformEscrowWallet = await walletService.getWalletByUserAndType('00000000-0000-0000-0000-000000000000', 'escrow');
 
     if (!lenderWallet || !platformEscrowWallet) throw new Error('Wallets not found');
 
