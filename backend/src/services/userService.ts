@@ -1,5 +1,5 @@
-import { query } from '../db';
-import { v4 as uuidv4 } from 'uuid';
+import { query } from "../db";
+import { v4 as uuidv4 } from "uuid";
 
 export interface User {
   id: string;
@@ -13,7 +13,7 @@ export interface User {
 export const createUser = async (
   countryCode: string,
   phoneNumber: string,
-  deviceId?: string
+  deviceId?: string,
 ): Promise<User> => {
   const sql = `
     INSERT INTO users (phone_country_code, phone_number, device_id)
@@ -24,7 +24,10 @@ export const createUser = async (
   return res.rows[0];
 };
 
-export const findUserByPhone = async (countryCode: string, phoneNumber: string): Promise<User | null> => {
+export const findUserByPhone = async (
+  countryCode: string,
+  phoneNumber: string,
+): Promise<User | null> => {
   const sql = `
     SELECT * FROM users 
     WHERE phone_country_code = $1 AND phone_number = $2;

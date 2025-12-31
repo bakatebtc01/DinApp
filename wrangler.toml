@@ -1,0 +1,14 @@
+name = "dinapp-gateway"
+main = "backend/main.go"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENV = "production"
+
+[[r2_buckets]]
+binding = "DINAPP_R2"
+bucket_name = "dinapp-apk"
+
+[routes]
+pattern = "dinapp.io/*"
+custom_domain = true

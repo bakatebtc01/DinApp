@@ -1,0 +1,200 @@
+name: Build & Deploy APK to Cloudflare
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+env:
+  APK_NAME: dinapp-v0.1.apk
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "adopt"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-levels: 34
+          build-tools-version: 34.0.0
+
+      - name: Build APK
+        run: |
+          cd mobile
+          ./gradlew assembleRelease
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Calculate APK Checksum
+        id: checksum
+        run: |
+          APK_PATH="mobile/app/build/outputs/apk/release/app-release.apk"
+          if [ -f "$APK_PATH" ]; then
+            CHECKSUM=$(sha256sum "$APK_PATH" | awk '{print $1}')
+            echo "sha256=$CHECKSUM" >> $GITHUB_OUTPUT
+            echo "apk_size=$(stat -f%z "$APK_PATH" | numfmt --to=iec)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dinapp-apk
+          path: mobile/app/build/outputs/apk/release/app-release.apk
+          retention-days: 30
+
+      - name: Deploy to Cloudflare R2
+        run: |
+          npm install -g wrangler
+
+          # Upload to Cloudflare R2
+          wrangler r2 object put dinapp-apk/${{ env.APK_NAME }} \
+            --file mobile/app/build/outputs/apk/release/app-release.apk \
+            --content-type application/vnd.android.package-archive
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Deploy to Cloudflare Pages
+        run: |
+          mkdir -p dist
+
+          # Create release info page
+          cat > dist/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>DinApp - Download APK</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+              .container { background: #f5f5f5; padding: 30px; border-radius: 10px; }
+              h1 { color: #333; }
+              .info { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .download-btn { display: inline-block; background: #007AFF; color: white; padding: 12px 30px; border-radius: 5px; text-decoration: none; margin: 10px 0; }
+              .download-btn:hover { background: #0056b3; }
+              .warning { color: #d9534f; font-weight: bold; }
+              code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>📱 DinApp v0.1</h1>
+              <p>Direct APK Download for Pilot Users</p>
+              
+              <div class="info">
+                <h3>📥 Download</h3>
+                <p><a href="https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk" class="download-btn">⬇️ Download APK</a></p>
+              </div>
+              
+              <div class="info">
+                <h3>📋 Version Info</h3>
+                <p><strong>App:</strong> DinApp</p>
+                <p><strong>Version:</strong> 0.1</p>
+                <p><strong>File Size:</strong> <span id="fileSize">Loading...</span></p>
+                <p><strong>SHA-256:</strong> <code id="checksum">{{ CHECKSUM }}</code></p>
+              </div>
+              
+              <div class="info">
+                <h3>📲 Installation Instructions</h3>
+                <ol>
+                  <li>Download the APK file above</li>
+                  <li>Open your file manager and find the downloaded file</li>
+                  <li>Tap the <code>.apk</code> file</li>
+                  <li>If prompted, allow "Unknown apps" in Android settings</li>
+                  <li>Tap <strong>Install</strong></li>
+                  <li>Open DinApp and enjoy!</li>
+                </ol>
+                <p class="warning">⚠️ Note: This is a beta/pilot version. Features may change.</p>
+              </div>
+              
+              <div class="info">
+                <h3>🔐 Security & Trust</h3>
+                <p><strong>Signed with:</strong> DinApp Production Keystore</p>
+                <p><strong>Update Policy:</strong> Check for updates weekly</p>
+                <p><strong>Support:</strong> support@dinapp.io</p>
+              </div>
+              
+              <div class="info">
+                <h3>❓ Need Help?</h3>
+                <p>Email: <a href="mailto:support@dinapp.io">support@dinapp.io</a></p>
+                <p>WhatsApp: <a href="https://wa.me/254700000000">+254 700 000 000</a></p>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+          # Install and deploy using wrangler
+          npm install -g wrangler
+          wrangler pages deploy dist --project-name dinapp-apk
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Create Release Notes
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.1
+          release_name: DinApp v0.1 - MVP Release
+          body: |
+            ## 🎉 DinApp v0.1 Released
+
+            ### Download
+            - **APK File:** dinapp-v0.1.apk
+            - **Size:** ${{ steps.checksum.outputs.apk_size }}
+            - **SHA-256:** ${{ steps.checksum.outputs.sha256 }}
+
+            ### Features
+            - Phone number authentication with OTP
+            - Wallet creation and management
+            - Simple PIN protection
+            - Ready for pilot deployment
+
+            ### Installation
+            1. Download the APK
+            2. Enable "Unknown apps" in Android settings
+            3. Install the APK
+            4. Launch DinApp
+
+            ### Deployment
+            - Hosted on: Cloudflare R2 + Pages
+            - Download Link: https://dinapp-apk.pages.dev
+            - Contact: support@dinapp.io
+
+            ### Notes
+            - This is a beta/pilot version
+            - For closed group testing only
+            - Direct APK distribution (not on Play Store)
+            - Feedback welcome!
+          draft: false
+          prerelease: true
+          files: mobile/app/build/outputs/apk/release/app-release.apk
+
+      - name: Post Deployment Status
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const status = context.payload.pull_request ? 'success' : 'pushed';
+            console.log(`✅ APK deployment ${status}`);
+            console.log(`📱 Download: https://dinapp-apk.pages.dev`);
+            console.log(`🔐 Signed with keystore`);

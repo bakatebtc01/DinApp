@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DinApp Brand Colors -->
+    <color name="dinapp_blue">#007AFF</color>
+    <color name="dinapp_blue_dark">#0056B3</color>
+    <color name="dinapp_green">#34C759</color>
+    <color name="dinapp_green_dark">#1FA342</color>
+    <color name="dinapp_red">#FF3B30</color>
+    <color name="dinapp_dark">#1C1C1E</color>
+    <color name="dinapp_gray">#8E8E93</color>
+    <color name="dinapp_light_gray">#F2F2F7</color>
+    
+    <!-- Standard Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+</resources>

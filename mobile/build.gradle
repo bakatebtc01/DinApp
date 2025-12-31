@@ -1,0 +1,52 @@
+android {
+    compileSdkVersion 34
+    namespace "io.dinapp.app"
+
+    defaultConfig {
+        applicationId "io.dinapp.app"
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 1
+        versionName "0.1"
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../dinapp.keystore")
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: "ChangeMeWithSecurePassword"
+            keyAlias System.getenv("KEY_ALIAS") ?: "dinapp"
+            keyPassword System.getenv("KEY_PASSWORD") ?: "ChangeMeWithSecurePassword"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    // Core Android
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // Networking
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
