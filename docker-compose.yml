@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: dinapp-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-dinapp_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dinapp_secure_password}
+      POSTGRES_DB: ${DB_NAME:-dinapp_ledger}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dinapp-api
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DATABASE_URL=postgres://${DB_USER:-dinapp_admin}:${DB_PASSWORD:-dinapp_secure_password}@postgres:5432/${DB_NAME:-dinapp_ledger}
+      - NODE_ENV=development
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dinapp-web
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
