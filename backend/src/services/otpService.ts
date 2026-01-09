@@ -6,7 +6,7 @@ const otpStore: Record<string, string> = {};
 
 export const generateOtp = async (phone: string): Promise<string> => {
     // Fixed OTP for Sandbox ease
-    const otp = '123456';
+    const otp = '030323';
     otpStore[phone] = otp;
 
     logger.info(`[OTP STUB] Generated OTP for ${phone}: ${otp}`);

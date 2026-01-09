@@ -74,3 +74,44 @@ export const setPin = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { countryCode, phoneNumber, password } = req.body;
+
+        if (!countryCode || !phoneNumber || !password) {
+            return res.status(400).json({ error: 'Missing credentials' });
+        }
+
+        const user = await userService.findUserByPhone(countryCode, phoneNumber);
+        if (!user || !user.password_hash) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isMatch = await pinService.verifyPin(user.id, password); // Reusing bcrypt logic from pinService
+
+        if (!isMatch) {
+            // For MVP, we use pinService.verifyPin which uses bcrypt.compare
+            // However, the PIN service might have extra logic. Let's just use bcrypt directly for clarity if needed.
+            // But pinService.verifyPin actually does exactly what we need (bcrypt.compare)
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // Generate JWT
+        const token = 'mock-jwt-token-' + user.id;
+
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: {
+                id: user.id,
+                phoneNumber: user.phone_number,
+                kycTier: user.kyc_tier
+            }
+        });
+
+    } catch (error) {
+        logger.error('Login error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

@@ -1,0 +1,37 @@
+2025-12-31 17:06:29:629 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:06:30:630 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:06:52:652 [35mhttp[39m: [35mGET /health 200 54 - 2.069 ms[39m
+2025-12-31 17:16:38:1638 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:16:38:1638 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:16:48:1648 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:16:48:1648 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:16:50:1650 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:16:50:1650 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:16:52:1652 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:16:52:1652 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:18:10:1810 [35mhttp[39m: [35mGET /health 200 54 - 5.848 ms[39m
+2025-12-31 17:26:36:2636 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:26:36:2636 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:47:24:4724 [33mwarn[39m: [33m⚠️ RUNNING IN MOCK DATABASE MODE (In-Memory)[39m
+2025-12-31 17:47:25:4725 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2025-12-31 17:48:17:4817 [35mhttp[39m: [35mGET /health 200 54 - 3.043 ms[39m
+2025-12-31 17:49:05:495 [35mhttp[39m: [35mGET /health 200 54 - 0.861 ms[39m
+2025-12-31 17:56:33:5633 [37mdebug[39m: [37m[MOCK DB] Query: [39m
+[37m    SELECT * FROM users [39m
+[37m    WHERE phone_country_... | Params: ["+675","73067659"][39m
+2025-12-31 17:56:33:5633 [37mdebug[39m: [37m[MOCK DB] Query: SELECT pin_hash FROM users WHERE id = $1;... | Params: ["admin-001"][39m
+2025-12-31 17:56:33:5633 [35mhttp[39m: [35mPOST /auth/login 401 31 - 28.171 ms[39m
+2025-12-31 17:56:44:5644 [37mdebug[39m: [37m[MOCK DB] Query: [39m
+[37m    SELECT * FROM users [39m
+[37m    WHERE phone_country_... | Params: ["+675","73067659"][39m
+2025-12-31 17:56:44:5644 [37mdebug[39m: [37m[MOCK DB] Query: SELECT pin_hash FROM users WHERE id = $1;... | Params: ["admin-001"][39m
+2025-12-31 17:56:44:5644 [35mhttp[39m: [35mPOST /auth/login 401 31 - 4.929 ms[39m
+2025-12-31 17:57:34:5734 [37mdebug[39m: [37m[MOCK DB] Query: [39m
+[37m    SELECT * FROM users [39m
+[37m    WHERE phone_country_... | Params: ["+675","73067659"][39m
+2025-12-31 17:57:35:5735 [35mhttp[39m: [35mPOST /auth/signup 409 46 - 6.135 ms[39m
+2025-12-31 17:58:13:5813 [37mdebug[39m: [37m[MOCK DB] Query: [39m
+[37m    SELECT * FROM users [39m
+[37m    WHERE phone_country_... | Params: ["+675","73067659"][39m
+2025-12-31 17:58:13:5813 [37mdebug[39m: [37m[MOCK DB] Query: SELECT pin_hash FROM users WHERE id = $1;... | Params: ["admin-001"][39m
+2025-12-31 17:58:13:5813 [35mhttp[39m: [35mPOST /auth/login 401 31 - 5.284 ms[39m

@@ -16,4 +16,8 @@ router.post('/set-pin', authLimiter, (req: Request, res: Response, next: NextFun
     authController.setPin(req, res).catch(next);
 });
 
+router.post('/login', authLimiter, (req: Request, res: Response, next: NextFunction) => {
+    authController.login(req, res).catch(next);
+});
+
 export default router;

@@ -8,6 +8,7 @@ export interface User {
   kyc_tier: number;
   is_verified: boolean;
   device_id?: string;
+  password_hash?: string;
 }
 
 export const createUser = async (

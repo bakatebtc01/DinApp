@@ -9,9 +9,13 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          light: '#4fd1c5',
-          DEFAULT: '#319795',
-          dark: '#285e61',
+          red: '#CE1126',
+          gold: '#F7CC00',
+          black: '#000000',
+        },
+        png: {
+          red: '#CE1126',
+          gold: '#F7CC00',
         }
       }
     },
