@@ -64,9 +64,7 @@ To support sandbox testing requirements and KYC oversight in Papua New Guinea:
 - Wallet top-ups are available at registered DinApp/Gemini Agent locations.
 - Deposits above **K10,000** must be processed directly with the primary administrator for enhanced verification.
 
----
-
-## 2.5 User Permissions & Feature Set
+### 2.5 User Permissions & Feature Set
 
 To enable a seamless transaction experience, users authorize the following:
 
@@ -282,3 +280,45 @@ The Gemini App and its underlying economic infrastructure are the intellectual p
 | Baka Te Inc. | Patent Owner (Charity/Community Focus) | IP Holder |
 | Pacific Nexus Solutions Ltd. | Authorized Gold Distributor | Operational Management |
 | Kina Bank Account | Settlement Point | Monthly Fees (K1.50/user) |
+
+---
+
+## 10. COMPLIANCE, KYC & AML OBLIGATIONS
+
+### 10.1 Know Your Customer (KYC)
+
+All users must complete identity verification as required under Papua New Guinea regulatory sandbox guidelines. DinApp may require valid government-issued identification, proof of phone number ownership, and additional verification for high-value transactions.
+
+### 10.2 Anti-Money Laundering (AML) & Counter-Terrorism Financing (CTF)
+
+DinApp complies with applicable AML/CTF principles and reserves the right to monitor transactions, freeze wallets pending review, and report transactions where legally required.
+
+---
+
+## 11. DATA PRIVACY & INFORMATION SECURITY
+
+DinApp collects only data necessary to operate services and comply with legal requirements. User data is stored securely, and DinApp does not sell user data to third parties.
+
+---
+
+## 12. ACCOUNT SUSPENSION & TERMINATION
+
+DinApp may suspend or restrict accounts for fraud, KYC non-compliance, or term violations. Accounts may be permanently terminated for serious breaches.
+
+---
+
+## 13. LIMITATION OF LIABILITY
+
+To the maximum extent permitted by law, DinApp is not liable for indirect losses. Liability is limited to platform functionality, not user decisions.
+
+---
+
+## 14. DISPUTE RESOLUTION
+
+Users agree to first attempt resolution through DinApp’s internal support channels. Unresolved disputes fall under the jurisdiction of Papua New Guinea courts.
+
+---
+
+## 15. CONTACT & OFFICIAL COMMUNICATION
+
+Official communications are issued by Pacific Nexus Solutions Limited (Platform Operator), Baka Te Inc. (IP Owner), and KINA Bank (Settlement Partner). Support inquiries must be made through officially published DinApp channels.
