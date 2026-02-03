@@ -91,6 +91,31 @@ git push origin main
 
 ---
 
+## 🌐 CLOUDFLARE TEST APP (PREVIEW FIRST)
+
+Before distributing the APK broadly, run a **test app** deployment on Cloudflare Pages to validate the download flow and metadata:
+
+```bash
+# From repo root
+cd /workspace/DinApp
+
+# Ensure Cloudflare is authenticated
+npx wrangler whoami
+
+# Deploy the static download page (preview)
+npx wrangler pages deploy ./frontend/out --project-name dinapp-apk-preview
+```
+
+**Preview checks:**
+
+- ✅ Download button points to the correct APK.
+- ✅ Version and release notes display properly.
+- ✅ Mobile browser download works end-to-end.
+
+If the preview looks correct, proceed with the full deployment steps above.
+
+---
+
 ## 🧪 DEBUG APK VALIDATION (MVP HARDENING)
 
 Before shipping the Early Access APK, create and validate the **debug build** to catch regressions quickly:
