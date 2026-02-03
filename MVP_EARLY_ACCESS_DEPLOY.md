@@ -48,7 +48,7 @@ cd C:\Users\ADMIN\Documents\GitHub\DinApp
 
 **Step 5: Backup Keystore NOW!** (2 min)
 
-```
+```text
 CRITICAL: This is your most important file!
 - Copy dinapp.keystore to USB drive
 - Upload to cloud backup (encrypted)
@@ -91,6 +91,31 @@ git push origin main
 
 ---
 
+## 🌐 CLOUDFLARE TEST APP (PREVIEW FIRST)
+
+Before distributing the APK broadly, run a **test app** deployment on Cloudflare Pages to validate the download flow and metadata:
+
+```bash
+# From repo root
+cd /workspace/DinApp
+
+# Ensure Cloudflare is authenticated
+npx wrangler whoami
+
+# Deploy the static download page (preview)
+npx wrangler pages deploy ./frontend/out --project-name dinapp-apk-preview
+```
+
+**Preview checks:**
+
+- ✅ Download button points to the correct APK.
+- ✅ Version and release notes display properly.
+- ✅ Mobile browser download works end-to-end.
+
+If the preview looks correct, proceed with the full deployment steps above.
+
+---
+
 ## 🧪 DEBUG APK VALIDATION (MVP HARDENING)
 
 Before shipping the Early Access APK, create and validate the **debug build** to catch regressions quickly:
@@ -122,7 +147,7 @@ If issues appear, resolve before signing the release APK.
 
 ### What Gets Deployed
 
-```
+```text
 APK File: dinapp-v0.1.apk (~45-50 MB)
 Location: Cloudflare R2 bucket (dinapp-apk)
 Download Page: https://dinapp-apk.pages.dev (Cloudflare Pages)
@@ -131,7 +156,7 @@ Release: GitHub Releases v0.1 (APK + release notes + SHA-256)
 
 ### Users Download From
 
-**Official Page:** https://dinapp-apk.pages.dev
+**Official Page:** [https://dinapp-apk.pages.dev](https://dinapp-apk.pages.dev)
 
 - Download button (APK)
 - Version info
@@ -140,11 +165,11 @@ Release: GitHub Releases v0.1 (APK + release notes + SHA-256)
 
 **Direct Link:** Can be shared via WhatsApp/Telegram
 
-```
-https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk
+```text
+[https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk](https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk)
 ```
 
-**GitHub Release:** https://github.com/bakatebtc01/DinApp/releases/tag/v0.1
+**GitHub Release:** [https://github.com/bakatebtc01/DinApp/releases/tag/v0.1](https://github.com/bakatebtc01/DinApp/releases/tag/v0.1)
 
 - Full APK attached
 - SHA-256 checksum
@@ -188,7 +213,7 @@ Pick ONE organization to start:
 
 **Option A: WhatsApp Group** (Best for pilot)
 
-```
+```text
 Send message to group:
 
 🚀 DinApp v0.1 is ready for testing!
@@ -225,7 +250,7 @@ Send message to group:
 
 ### Week 1: Onboarding
 
-```
+```text
 Users install APK
 Users create account (phone + OTP + PIN)
 Users explore wallet
@@ -237,7 +262,7 @@ Collect first feedback
 
 ### Week 2: Core Features
 
-```
+```text
 Users send money
 Users check transaction history
 Users view wallet balance
@@ -249,7 +274,7 @@ Collect feedback:
 
 ### Week 3: Refinement
 
-```
+```text
 Fix reported bugs
 Improve UI based on feedback
 Plan v0.2 features

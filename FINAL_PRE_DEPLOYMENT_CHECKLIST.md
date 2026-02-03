@@ -32,7 +32,7 @@ cd C:\Users\ADMIN\Documents\GitHub\DinApp
 
 **You'll be prompted:**
 
-```
+```text
 Enter keystore password (min 8 chars):
 [Type a STRONG password, e.g.: MyDinApp2026!secure]
 
@@ -75,7 +75,7 @@ ls dinapp.keystore
 
 **Backup Location 1: USB Drive**
 
-```
+```text
 1. Insert USB drive
 2. Copy dinapp.keystore to USB
 3. Label USB: "DinApp Keystore Backup"
@@ -84,7 +84,7 @@ ls dinapp.keystore
 
 **Backup Location 2: Cloud (Encrypted)**
 
-```
+```text
 1. Go to: Google Drive / OneDrive / Dropbox
 2. Create folder: "DinApp Backups"
 3. Upload dinapp.keystore
@@ -93,7 +93,7 @@ ls dinapp.keystore
 
 **Backup Location 3: Password Manager**
 
-```
+```text
 1. Open password manager (LastPass, 1Password, Bitwarden)
 2. Create entry: "DinApp Keystore"
 3. Store:
@@ -104,13 +104,13 @@ ls dinapp.keystore
 
 **✅ Checklist for Step 1.5:**
 
-```
+```text
 ☐ Keystore copied to USB drive
 ☐ USB drive labeled and stored safely
 ☐ Keystore backed up to cloud
 ☐ Password saved in password manager
 ☐ You can remember: THIS FILE = YOUR SIGNING KEY
-  (Lose it = Cannot update app ever)
+   (Lose it = Cannot update app ever)
 ```
 
 **🚨 CRITICAL:** Do NOT commit dinapp.keystore to GitHub!
@@ -125,7 +125,7 @@ ls dinapp.keystore
 
 ### Step 2.1: Create Free Cloudflare Account
 
-**Go to:** https://dash.cloudflare.com/sign-up
+**Go to:** [https://dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up)
 
 ```
 Email: [Your email]

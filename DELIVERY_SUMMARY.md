@@ -12,7 +12,7 @@
 
 ### **15 New Files Created / Modified:**
 
-```
+```text
 NEW DOCUMENTATION (8 guides):
 ✅ 00_READ_ME_FIRST.md                      (Entry point)
 ✅ START_HERE.md                            (Navigation guide)
@@ -109,7 +109,7 @@ KEYSTORE SCRIPTS (to be run by you):
 
 Pick ONE:
 
-```
+```text
 Fast path (5 min):
 → Read: 00_READ_ME_FIRST.md
 
@@ -122,7 +122,7 @@ Comprehensive (15 min):
 
 Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 1:
 
-```
+```text
 ☐ Create Cloudflare account (free)
 ☐ Create R2 bucket: dinapp-apk
 ☐ Get API token + Account ID
@@ -135,7 +135,7 @@ Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 1:
 
 Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 2:
 
-```
+```text
 ☐ git push origin main
 ☐ Watch GitHub Actions workflow
 ☐ Wait for completion (~15 min)
@@ -146,7 +146,7 @@ Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 2:
 
 Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 3:
 
-```
+```text
 ☐ Download APK on Android device
 ☐ Install and test
 ☐ Share link with pilot users (50-200)
@@ -161,7 +161,7 @@ Follow [FINAL_CHECKLIST.md](FINAL_CHECKLIST.md) Phase 3:
 
 ### **GitHub Actions Workflow (The Core):**
 
-```
+```text
 Triggered by: git push to main
 
 Does automatically:
@@ -180,7 +180,7 @@ Cost: FREE (all free tiers)
 
 ### **Security Built-In:**
 
-```
+```text
 ✅ Keystore never exposed
 ✅ Passwords in GitHub Secrets (encrypted)
 ✅ HTTPS-only distribution (Cloudflare)
@@ -191,7 +191,7 @@ Cost: FREE (all free tiers)
 
 ### **Zero Downtime Updates:**
 
-```
+```text
 v0.1 live → v0.2 ready
 Update versionCode in build.gradle
 git push origin main
@@ -224,7 +224,7 @@ You'll know it's working when:
 
 ✅ GitHub Actions workflow completes (green checkmark)
 ✅ APK appears in Cloudflare R2 bucket
-✅ Download page loads at https://dinapp-apk.pages.dev
+✅ Download page loads at [https://dinapp-apk.pages.dev](https://dinapp-apk.pages.dev)
 ✅ APK downloads successfully (~45 MB)
 ✅ APK installs on Android device
 ✅ App opens and requests phone number
@@ -237,8 +237,8 @@ You'll know it's working when:
 
 What they'll experience:
 
-```
-1. Receive: https://dinapp-apk.pages.dev link
+```text
+1. Receive: [https://dinapp-apk.pages.dev](https://dinapp-apk.pages.dev) link
 2. See: Download page with instructions
 3. Download: APK file (~45 MB, 2 minutes on 4G)
 4. Install: Tap file, "Allow unknown apps", Install
@@ -257,7 +257,7 @@ Your control: 100% (not dependent on Google)
 
 **Releasing v0.2 is simple:**
 
-```
+```text
 Step 1: Edit mobile/app/build.gradle
   versionCode: 1 → 2
   versionName: "0.1" → "0.2"
@@ -283,7 +283,7 @@ Time: 5 min + 15 min workflow = 20 min total
 
 ### **BACKUP KEYSTORE NOW!**
 
-```
+```text
 File: dinapp.keystore
 Backup to:
   1. USB drive (encrypted)
@@ -296,7 +296,7 @@ If lost: You cannot update app (major problem!)
 
 ### **GitHub Secrets (5 Required)**
 
-```
+```text
 CLOUDFLARE_ACCOUNT_ID
 CLOUDFLARE_API_TOKEN
 KEYSTORE_PASSWORD
@@ -306,7 +306,7 @@ KEY_PASSWORD
 
 ### **Never Commit Keystore**
 
-```
+```text
 .gitignore already prevents this ✅
 But: Ensure dinapp.keystore stays local
 ```

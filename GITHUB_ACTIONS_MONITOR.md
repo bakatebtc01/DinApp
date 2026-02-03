@@ -10,7 +10,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 ### Step 1: Trigger (Automatic)
 
-```
+```text
 ✅ Code pushed to main
 ✅ GitHub Actions workflow activated
 ⏱️ Starts within 30 seconds
@@ -18,7 +18,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 ### Step 2: Build APK (5-7 minutes)
 
-```
+```text
 📦 Android SDK setup
 📦 Dependencies download
 📦 Gradle build
@@ -28,7 +28,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 ### Step 3: Upload to Cloudflare (2-3 minutes)
 
-```
+```text
 ☁️ Connect to R2 bucket
 ☁️ Upload dinapp-v0.1.apk
 ☁️ Set as downloadable
@@ -37,7 +37,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 ### Step 4: Deploy Web Page (1-2 minutes)
 
-```
+```text
 🌐 Deploy to Cloudflare Pages
 🌐 URL: https://dinapp-apk.pages.dev
 🌐 Page becomes live
@@ -45,7 +45,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 ### Step 5: Create Release (1 minute)
 
-```
+```text
 🏷️ Create GitHub Release tag: v0.1
 🏷️ Attach APK file
 🏷️ Add release notes
@@ -62,7 +62,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 **In Browser:**
 
-1. Go to: https://github.com/bakatebtc01/DinApp
+1. Go to: [https://github.com/bakatebtc01/DinApp](https://github.com/bakatebtc01/DinApp)
 2. Click: **Actions** (top menu)
 3. You'll see your workflow run
 4. Each step has a status:
@@ -72,7 +72,7 @@ After you run `git push origin main`, your APK goes through this pipeline:
 
 **What You're Looking For:**
 
-```
+```text
 Workflow: build-deploy-apk
 ├─ Build APK                 🟢 ~7 min
 ├─ Sign & Verify            🟢 ~2 min
@@ -91,7 +91,7 @@ Once workflow is complete (15-20 min), verify manually:
 
 ### Check 1: APK File Exists in R2
 
-```bash
+```text
 # In browser, go to:
 https://dash.cloudflare.com/
 
@@ -104,9 +104,9 @@ https://dash.cloudflare.com/
 
 ### Check 2: Download Page Works
 
-```
+```text
 Open in browser:
-https://dinapp-apk.pages.dev
+[https://dinapp-apk.pages.dev](https://dinapp-apk.pages.dev)
 
 You should see:
 ✅ DinApp v0.1 download page
@@ -117,9 +117,9 @@ You should see:
 
 ### Check 3: GitHub Release Created
 
-```
+```text
 Go to:
-https://github.com/bakatebtc01/DinApp/releases
+[https://github.com/bakatebtc01/DinApp/releases](https://github.com/bakatebtc01/DinApp/releases)
 
 You should see:
 ✅ Tag: v0.1
@@ -130,9 +130,9 @@ You should see:
 
 ### Check 4: Test Download Link
 
-```
+```text
 Direct link test:
-https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk
+[https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk](https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk)
 
 Should:
 ✅ Start downloading immediately
@@ -148,14 +148,14 @@ Once file downloads, test on Android device:
 
 **Before Installing:**
 
-```
+```text
 Settings → Security → Unknown sources
 ☐ Enable "Allow installation from unknown sources"
 ```
 
 **Installation Steps:**
 
-```
+```text
 1. Tap downloaded dinapp-v0.1.apk file
 2. Allow permissions
 3. Wait for install (30-60 seconds)
@@ -164,7 +164,7 @@ Settings → Security → Unknown sources
 
 **First Launch:**
 
-```
+```text
 1. Open DinApp app
 2. See welcome screen ✅
 3. Phone number input ✅
@@ -183,7 +183,7 @@ Settings → Security → Unknown sources
 
 **Check:**
 
-```
+```text
 GitHub Actions → Your workflow run → Build APK step
 Click "Build APK" to see error
 Common reasons:
@@ -194,7 +194,7 @@ Common reasons:
 
 **Fix:**
 
-```bash
+```text
 # In VS Code terminal:
 cd backend  # or mobile/
 gradle clean  # Clear cache
@@ -205,7 +205,7 @@ gradle build  # Try building locally first
 
 **Check:**
 
-```
+```text
 Error: "Cannot read KEYSTORE_PASSWORD"
 Reason: GitHub Secret not set correctly
 
@@ -224,7 +224,7 @@ Fix:
 
 **Check:**
 
-```
+```text
 Error: "401 Unauthorized"
 Reason: API token expired or invalid
 
@@ -241,7 +241,7 @@ Fix:
 
 **Check:**
 
-```
+```text
 Error: "Cannot deploy to Pages"
 Reason: Project not configured for Pages
 

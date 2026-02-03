@@ -179,7 +179,7 @@ All covered:
 
 **How users get your app:**
 
-```
+```text
 1. User visits: https://dinapp-apk.pages.dev
 2. Clicks "Download APK"
 3. Saves dinapp-v0.1.apk to phone
@@ -200,7 +200,7 @@ All covered:
 
 ### Now (In next 5 minutes)
 
-```
+```text
 1. Open: QUICK_START_DEPLOY.md
 2. Read it completely
 3. Decide: Ready to deploy?

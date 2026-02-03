@@ -105,7 +105,7 @@ Quick checklist:
 
 ### For Users
 
-```
+```text
 1. Visit: https://dinapp-apk.pages.dev
 2. Click: Download APK
 3. Install on Android phone

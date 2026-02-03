@@ -105,7 +105,7 @@ OVERALL: ✅ ALL CRITICAL ITEMS COMPLETE
 
 **Step 1: Setup (30 minutes)**
 
-```
+```text
 - Read: FINAL_PRE_DEPLOYMENT_CHECKLIST.md
 - Generate keystore
 - Backup keystore (2 locations)
@@ -117,7 +117,7 @@ OVERALL: ✅ ALL CRITICAL ITEMS COMPLETE
 
 **Step 2: Deploy (Automated - 15-20 minutes)**
 
-```
+```text
 - git push origin main
 - GitHub Actions builds APK automatically
 - Signs with keystore
@@ -128,7 +128,7 @@ OVERALL: ✅ ALL CRITICAL ITEMS COMPLETE
 
 **Step 3: Verify (15 minutes)**
 
-```
+```text
 - Check GitHub Actions (green ✅)
 - Verify APK in R2 bucket
 - Test download page

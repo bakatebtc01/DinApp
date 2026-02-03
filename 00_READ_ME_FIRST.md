@@ -152,7 +152,7 @@ Users in app! 🎉
 
 Share this link:
 
-```
+```text
 https://dinapp-apk.pages.dev
 ```
 
@@ -181,7 +181,7 @@ Installation takes ~2 minutes. No Play Store needed.
 
 ## 📊 WHAT YOU'LL ACCOMPLISH
 
-```
+```text
 Immediate (1 hour):
 ✓ Keystore generated & backed up
 ✓ GitHub Secrets configured
@@ -241,7 +241,7 @@ To release v0.2:
 
 ### **BACKUP KEYSTORE NOW!**
 
-```
+```text
 Location: ./dinamp.keystore
 Backup to: USB drive + cloud (encrypted)
 Password: Save in password manager
@@ -250,7 +250,7 @@ If lost: Cannot update app (start over)
 
 ### **ADD GITHUB SECRETS**
 
-```
+```text
 5 secrets total:
 - CLOUDFLARE_ACCOUNT_ID
 - CLOUDFLARE_API_TOKEN
@@ -261,10 +261,10 @@ If lost: Cannot update app (start over)
 
 ### **FIRST DEPLOYMENT**
 
-```
+```text
 git push origin main
 Wait ~15 minutes
-Check: https://dinapp-apk.pages.dev
+Check: [https://dinapp-apk.pages.dev](https://dinapp-apk.pages.dev)
 If success: Share link with users
 ```
 
@@ -302,7 +302,7 @@ If success: Share link with users
 | Understanding   | Read [APK_DEPLOYMENT_COMPLETE_GUIDE.md](APK_DEPLOYMENT_COMPLETE_GUIDE.md) |
 | Architecture    | Read [ARCHITECTURE.md](ARCHITECTURE.md)                                   |
 | Troubleshooting | Check APK_DEPLOYMENT_COMPLETE_GUIDE.md → Troubleshooting                  |
-| More help       | Email support@dinapp.io                                                   |
+| More help       | Email [support@dinapp.io](mailto:support@dinapp.io)                                                   |
 
 ---
 

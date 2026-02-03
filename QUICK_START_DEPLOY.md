@@ -139,7 +139,7 @@ GitHub Actions automatically:
 
 Send this message to pilot users:
 
-```
+```text
 🚀 DinApp v0.1 is ready!
 
 📥 Download: https://dinapp-apk.pages.dev
@@ -155,6 +155,7 @@ Send this message to pilot users:
 
 Questions? Email: support@dinapp.io
 ```
+
 
 ---
 

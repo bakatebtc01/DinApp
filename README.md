@@ -1,7 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-# DinApp
-DinApp
-=========
 # DinApp - Digital Financial Marketplace
 
 DinApp is a digital financial services platform for East Africa, providing wallets, payments, and digital money services with native Android app support.
@@ -25,7 +21,7 @@ DinApp is a digital financial services platform for East Africa, providing walle
 
 ## Project Structure
 
-```
+```text
 DinApp/
 ├── mobile/                    ← Android APK Build (NEW!)
 │   ├── app/                  ← APK source code
@@ -76,6 +72,6 @@ Services will be available at:
 - **Database**: Port 5432 (User: `dinapp_admin`, DB: `dinapp_ledger`)
 
 ## Future Work (Sprint 1+)
+
 - **Mobile App**: A Flutter application will be integrated in future sprints for native mobile support.
 - **Auth**: OTP and PIN logic will be implemented in the Backend.
->>>>>>>>> Temporary merge branch 2

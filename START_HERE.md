@@ -209,7 +209,7 @@ mobile/app/build.gradle          ← Version numbers here!
 
 ### **Android App**
 
-```
+```text
 mobile/app/src/main/AndroidManifest.xml ← Permissions
 mobile/app/src/main/java/io/dinapp/app/ ← Source code
 mobile/app/src/main/res/                 ← Resources
