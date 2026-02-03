@@ -1,0 +1,81 @@
+2026-02-04 05:18:14:1814 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:18:32:1832 [35mhttp[39m: [35mGET /health 200 54 - 3.092 ms[39m
+2026-02-04 05:20:34:2034 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:21:16:2116 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    SELECT * FROM users [39m
+[32m    WHERE phone_country_code = $1 AND phone_number = $2;[39m
+[32m   Params: ["+1","5551234567"][39m
+2026-02-04 05:21:16:2116 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    INSERT INTO users (phone_country_code, phone_number, device_id)[39m
+[32m    VALUES ($1, $2, $3)[39m
+[32m    RETURNING id, phone_country_code, phone_number, kyc_tier, is_verified, device_id;[39m
+[32m   Params: ["+1","5551234567","test-device"][39m
+2026-02-04 05:21:16:2116 [32minfo[39m: [32m[OTP STUB] Generated OTP for 5551234567: 123456[39m
+2026-02-04 05:21:16:2116 [35mhttp[39m: [35mPOST /auth/signup 201 85 - 14.339 ms[39m
+2026-02-04 05:28:00:280 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:28:21:2821 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:28:39:2839 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:29:43:2943 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:30:06:306 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:35:12:3512 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:35:19:3519 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:36:09:369 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    SELECT * FROM users [39m
+[32m    WHERE phone_country_code = $1 AND phone_number = $2;[39m
+[32m   Params: ["+675","360912345"][39m
+2026-02-04 05:36:09:369 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    INSERT INTO users ([39m
+[32m      phone_country_code, phone_number, device_id, email, password_hash,[39m
+[32m      first_name, last_name, dob, address, city, country,[39m
+[32m      id_type, id_number, biometric_opt_in, pin_hash[39m
+[32m    )[39m
+[32m    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)[39m
+[32m    RETURNING id, phone_country_code, phone_number, email, first_name, last_name, kyc_tier, is_verified, device_id;[39m
+[32m   Params: ["+675","360912345",null,"testuser20260204053608@example.com","$2b$10$G6nl65SshiM57CrzgRTe8eNrPBRqEbdyAAi5SrFsB2B6uhx57OSLG","Test","User",null,null,null,null,null,null,null,null][39m
+2026-02-04 05:36:09:369 [32minfo[39m: [32m[OTP STUB] Generated OTP for 360912345: 123456[39m
+2026-02-04 05:36:09:369 [35mhttp[39m: [35mPOST /auth/signup 201 85 - 92.841 ms[39m
+2026-02-04 05:36:10:3610 [32minfo[39m: [32m[MOCK DB] Query: SELECT * FROM users WHERE email = $1; Params: ["testuser20260204053608@example.com"][39m
+2026-02-04 05:36:10:3610 [35mhttp[39m: [35mPOST /auth/login 404 26 - 1.193 ms[39m
+2026-02-04 05:37:00:370 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:55:18:5518 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    SELECT * FROM users [39m
+[32m    WHERE phone_country_code = $1 AND phone_number = $2;[39m
+[32m   Params: ["+675","551612345"][39m
+2026-02-04 05:55:18:5518 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    INSERT INTO users ([39m
+[32m      phone_country_code, phone_number, device_id, email, password_hash,[39m
+[32m      first_name, last_name, dob, address, city, country,[39m
+[32m      id_type, id_number, biometric_opt_in, pin_hash[39m
+[32m    )[39m
+[32m    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)[39m
+[32m    RETURNING id, phone_country_code, phone_number, email, first_name, last_name, kyc_tier, is_verified, device_id;[39m
+[32m   Params: ["+675","551612345",null,"testuser20260204055515@example.com","$2b$10$enMjDTaDNaLrVOeEcLixo.YEIBXHPl0eTnL/mmx/BbHqsjAjbV/DO","Test","User",null,null,null,null,null,null,null,null][39m
+2026-02-04 05:55:18:5518 [32minfo[39m: [32m[OTP STUB] Generated OTP for 551612345: 123456[39m
+2026-02-04 05:55:18:5518 [35mhttp[39m: [35mPOST /auth/signup 201 85 - 228.464 ms[39m
+2026-02-04 05:55:18:5518 [32minfo[39m: [32m[MOCK DB] Query: SELECT * FROM users WHERE email = $1; Params: ["testuser20260204055515@example.com"][39m
+2026-02-04 05:55:18:5518 [35mhttp[39m: [35mPOST /auth/login 404 26 - 3.636 ms[39m
+2026-02-04 05:55:42:5542 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 05:55:59:5559 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    SELECT * FROM users [39m
+[32m    WHERE phone_country_code = $1 AND phone_number = $2;[39m
+[32m   Params: ["+675","555812345"][39m
+2026-02-04 05:55:59:5559 [32minfo[39m: [32m[MOCK DB] Query: [39m
+[32m    INSERT INTO users ([39m
+[32m      phone_country_code, phone_number, device_id, email, password_hash,[39m
+[32m      first_name, last_name, dob, address, city, country,[39m
+[32m      id_type, id_number, biometric_opt_in, pin_hash[39m
+[32m    )[39m
+[32m    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)[39m
+[32m    RETURNING id, phone_country_code, phone_number, email, first_name, last_name, kyc_tier, is_verified, device_id;[39m
+[32m   Params: ["+675","555812345",null,"testuser20260204055557@example.com","$2b$10$nq7Pyk07B6r7cj9mMHU1V.Z.s/1uQFr9hzKce1qyYNplkF2Zix3Se","Test","User",null,null,null,null,null,null,null,null][39m
+2026-02-04 05:55:59:5559 [32minfo[39m: [32m[OTP STUB] Generated OTP for 555812345: 123456[39m
+2026-02-04 05:55:59:5559 [35mhttp[39m: [35mPOST /auth/signup 201 85 - 191.949 ms[39m
+2026-02-04 05:56:01:561 [32minfo[39m: [32m[MOCK DB] Query: SELECT * FROM users WHERE email = $1; Params: ["testuser20260204055557@example.com"][39m
+2026-02-04 05:56:02:562 [35mhttp[39m: [35mPOST /auth/login 200 103 - 134.722 ms[39m
+2026-02-04 06:07:38:738 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 06:07:43:743 [35mhttp[39m: [35mGET /?ide_webview_request_time=1770149259259 404 139 - 3.241 ms[39m
+2026-02-04 06:22:56:2256 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 06:23:16:2316 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 06:26:42:2642 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 06:27:10:2710 [32minfo[39m: [32mUsing MOCK DATABASE (In-Memory)[39m
+2026-02-04 06:27:10:2710 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
