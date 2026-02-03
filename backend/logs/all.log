@@ -79,3 +79,5 @@
 2026-02-04 06:26:42:2642 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
 2026-02-04 06:27:10:2710 [32minfo[39m: [32mUsing MOCK DATABASE (In-Memory)[39m
 2026-02-04 06:27:10:2710 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
+2026-02-04 06:30:54:3054 [32minfo[39m: [32mUsing MOCK DATABASE (In-Memory)[39m
+2026-02-04 06:30:55:3055 [32minfo[39m: [32mServer is running at http://localhost:3001[39m
