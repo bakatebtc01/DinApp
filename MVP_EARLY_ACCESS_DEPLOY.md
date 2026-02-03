@@ -91,6 +91,58 @@ git push origin main
 
 ---
 
+## 🌐 CLOUDFLARE TEST APP (PREVIEW FIRST)
+
+Before distributing the APK broadly, run a **test app** deployment on Cloudflare Pages to validate the download flow and metadata:
+
+```bash
+# From repo root
+cd /workspace/DinApp
+
+# Ensure Cloudflare is authenticated
+npx wrangler whoami
+
+# Deploy the static download page (preview)
+npx wrangler pages deploy ./frontend/out --project-name dinapp-apk-preview
+```
+
+**Preview checks:**
+
+- ✅ Download button points to the correct APK.
+- ✅ Version and release notes display properly.
+- ✅ Mobile browser download works end-to-end.
+
+If the preview looks correct, proceed with the full deployment steps above.
+
+---
+
+## 🧪 DEBUG APK VALIDATION (MVP HARDENING)
+
+Before shipping the Early Access APK, create and validate the **debug build** to catch regressions quickly:
+
+```bash
+cd mobile
+./gradlew clean assembleDebug
+```
+
+**Debug APK path:**
+
+```
+mobile/app/build/outputs/apk/debug/app-debug.apk
+```
+
+### Debug Fix Checklist
+
+- ✅ App launches to home screen without crash.
+- ✅ Login/Signup screens load and accept input.
+- ✅ Permissions prompts function (push, SMS, audio).
+- ✅ Network requests show friendly error states when offline.
+- ✅ Wallet and QR flows navigate without dead-ends.
+
+If issues appear, resolve before signing the release APK.
+
+---
+
 ## 📱 LIVE DEPLOYMENT DETAILS
 
 ### What Gets Deployed
@@ -122,6 +174,19 @@ https://r2.dinapp.io/dinapp-apk/dinapp-v0.1.apk
 - Full APK attached
 - SHA-256 checksum
 - Release notes
+
+---
+
+## ✅ MVP EARLY ACCESS LAUNCH CHECKLIST
+
+Use this checklist to finalize the full app experience before publishing:
+
+- [ ] All signup, login, and KYC steps are reachable in-app.
+- [ ] Wallet onboarding explains fees, settlement, and top-up rules.
+- [ ] Audio, SMS, and push notification permissions are requested once and cached.
+- [ ] PDF statement export is visible in the wallet/transactions view.
+- [ ] Livestream gifting/virtual goods flow is exposed where applicable.
+- [ ] Release APK is signed and uploaded to R2 + GitHub Release.
 
 ---
 
