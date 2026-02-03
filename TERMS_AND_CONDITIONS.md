@@ -55,6 +55,41 @@ All transactions:
 
 DinApp may charge transparent platform fees, displayed before confirmation. Fees are non-refundable once a transaction is completed.
 
+### 2.4 Subscription, Settlement & Liquidity Protocols
+
+To support sandbox testing requirements and KYC oversight in Papua New Guinea:
+
+- A monthly service subscription fee of **K1.50** is automatically deducted from each user wallet balance.
+- Accumulated service fees are settled to the administrator’s designated **KINA Bank** account.
+- Wallet top-ups are available at registered DinApp/Gemini Agent locations.
+- Deposits above **K10,000** must be processed directly with the primary administrator for enhanced verification.
+
+---
+
+## 2.5 User Permissions & Feature Set
+
+To enable a seamless transaction experience, users authorize the following:
+
+- **Push Notifications:** Instant pop-up alerts for account activity.
+- **SMS Integration:** Verification and offline transaction confirmations.
+- **Audio Announcements:** “Money Received” voice alerts that announce sender name and amount.
+
+Additional transaction and utility features include:
+
+- **PDF Statements:** Exportable, branded PDF transaction history.
+- **Virtual Currency Conversion:** Wallet balance can be used to purchase virtual gifts.
+- **Livestream Gifting:** Real-time gifting to creators during livestreams.
+
+**Feature summary**
+
+| Feature | Specification |
+| --- | --- |
+| Notification Type | Audio + Pop-up (includes sender name) |
+| Reporting | Exportable PDF history |
+| Utility | Livestream gifting / virtual goods |
+| Distributor | Pacific Nexus Solutions Limited |
+| IP Holder | Baka Te Inc. |
+
 ---
 
 ## 3. LIVESTREAMING, GIFTING & SUBSCRIPTIONS TERMS
@@ -67,8 +102,8 @@ DinApp may charge transparent platform fees, displayed before confirmation. Fees
 
 **Revenue Split:**
 
-- **55%** to Creator
-- **45%** to DinApp
+- **50%** to Creator
+- **50%** to DinApp (Baka Te Inc. as IP holder via Pacific Nexus Solutions Ltd.)
 
 ### 3.2 Monthly Fan Subscriptions
 
@@ -78,8 +113,8 @@ DinApp may charge transparent platform fees, displayed before confirmation. Fees
 
 **Subscription Revenue Split:**
 
-- **55%** to Creator
-- **45%** to DinApp
+- **50%** to Creator
+- **50%** to DinApp (Baka Te Inc. as IP holder via Pacific Nexus Solutions Ltd.)
 
 _Subscriptions are payments for digital services, not donations or investments._
 
@@ -227,3 +262,23 @@ These Terms are governed by the laws of Papua New Guinea, subject to sandbox con
 ### 8.4 Amendments
 
 DinApp may update these Terms with notice, especially during sandbox testing or regulatory changes.
+
+---
+
+## 9. LEGAL FRAMEWORK & AUTHORIZATION
+
+### 9.1 Patent Ownership
+
+The Gemini App and its underlying economic infrastructure are the intellectual property of **Baka Te Inc.**, a community-based charity organization.
+
+### 9.2 Authorized Distribution
+
+**Pacific Nexus Solutions Limited** is the officially designated **Gold Distributor**, holding exclusive distribution rights and responsible for regional deployment and management of the platform.
+
+### 9.3 Integration Summary
+
+| Entity | Role | Financial Destination |
+| --- | --- | --- |
+| Baka Te Inc. | Patent Owner (Charity/Community Focus) | IP Holder |
+| Pacific Nexus Solutions Ltd. | Authorized Gold Distributor | Operational Management |
+| Kina Bank Account | Settlement Point | Monthly Fees (K1.50/user) |
