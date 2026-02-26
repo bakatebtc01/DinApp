@@ -1,23 +1,76 @@
 -- Up Migration
 
-CREATE TYPE user_kyc_status AS ENUM ('PENDING', 'VERIFIED', 'UNDER_REVIEW', 'REJECTED');
-CREATE TYPE bank_name AS ENUM ('BSP', 'Kina', 'Westpac', 'ANZ');
-CREATE TYPE ledger_entry_type AS ENUM (
-  'MEMBERSHIP_FEE',
-  'TASK_REWARD',
-  'REFERRAL_REWARD',
-  'TRANSFER',
-  'SCAN_PAY',
-  'TRANSACTION_FEE',
-  'LOAN_DISBURSEMENT',
-  'LOAN_REPAYMENT',
-  'LOAN_INTEREST',
-  'WITHDRAWAL',
-  'SYSTEM_ADJUSTMENT',
-  'ADMIN_PROFIT_SETTLEMENT'
-);
-CREATE TYPE loan_status AS ENUM ('ACTIVE', 'SETTLED', 'DEFAULTED');
-CREATE TYPE review_decision AS ENUM ('APPROVED', 'REJECTED', 'REQUEST_RETRY');
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+CREATE SCHEMA IF NOT EXISTS app;
+
+CREATE OR REPLACE FUNCTION app.current_user_id()
+RETURNS UUID
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  user_id_setting TEXT;
+BEGIN
+  user_id_setting := current_setting('app.current_user_id', true);
+  IF user_id_setting IS NULL OR user_id_setting = '' THEN
+    RETURN NULL;
+  END IF;
+
+  RETURN user_id_setting::UUID;
+EXCEPTION
+  WHEN invalid_text_representation THEN
+    RETURN NULL;
+END;
+$$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_kyc_status') THEN
+    CREATE TYPE user_kyc_status AS ENUM ('PENDING', 'VERIFIED', 'UNDER_REVIEW', 'REJECTED');
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'bank_name') THEN
+    CREATE TYPE bank_name AS ENUM ('BSP', 'Kina', 'Westpac', 'ANZ');
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ledger_entry_type') THEN
+    CREATE TYPE ledger_entry_type AS ENUM (
+      'MEMBERSHIP_FEE',
+      'TASK_REWARD',
+      'REFERRAL_REWARD',
+      'TRANSFER',
+      'SCAN_PAY',
+      'TRANSACTION_FEE',
+      'LOAN_DISBURSEMENT',
+      'LOAN_REPAYMENT',
+      'LOAN_INTEREST',
+      'WITHDRAWAL',
+      'SYSTEM_ADJUSTMENT',
+      'ADMIN_PROFIT_SETTLEMENT'
+    );
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'loan_status') THEN
+    CREATE TYPE loan_status AS ENUM ('ACTIVE', 'SETTLED', 'DEFAULTED');
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'review_decision') THEN
+    CREATE TYPE review_decision AS ENUM ('APPROVED', 'REJECTED', 'REQUEST_RETRY');
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS biometric_profiles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -136,7 +189,6 @@ CREATE TABLE IF NOT EXISTS monthly_payout_items (
   UNIQUE (batch_id, user_id)
 );
 
--- Enable RLS on sensitive user-owned tables
 ALTER TABLE biometric_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bank_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ambassador_daily_tasks ENABLE ROW LEVEL SECURITY;
@@ -145,26 +197,38 @@ ALTER TABLE loans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE identity_mismatch_reviews ENABLE ROW LEVEL SECURITY;
 ALTER TABLE monthly_payout_items ENABLE ROW LEVEL SECURITY;
 
--- Minimal owner-only policies (replace app.current_user_id() with your auth function)
+DROP POLICY IF EXISTS biometric_profiles_user_select ON biometric_profiles;
 CREATE POLICY biometric_profiles_user_select ON biometric_profiles
   FOR SELECT USING (user_id = app.current_user_id());
 
+DROP POLICY IF EXISTS bank_settings_user_select ON bank_settings;
 CREATE POLICY bank_settings_user_select ON bank_settings
   FOR SELECT USING (user_id = app.current_user_id());
 
+DROP POLICY IF EXISTS ambassador_tasks_user_select ON ambassador_daily_tasks;
 CREATE POLICY ambassador_tasks_user_select ON ambassador_daily_tasks
   FOR SELECT USING (user_id = app.current_user_id());
 
+DROP POLICY IF EXISTS ledger_entries_user_select ON shadow_ledger_entries;
 CREATE POLICY ledger_entries_user_select ON shadow_ledger_entries
   FOR SELECT USING (user_id = app.current_user_id());
 
+DROP POLICY IF EXISTS loans_user_select ON loans;
 CREATE POLICY loans_user_select ON loans
   FOR SELECT USING (user_id = app.current_user_id());
 
+DROP POLICY IF EXISTS payout_items_user_select ON monthly_payout_items;
 CREATE POLICY payout_items_user_select ON monthly_payout_items
   FOR SELECT USING (user_id = app.current_user_id());
 
 -- Down Migration
+DROP POLICY IF EXISTS payout_items_user_select ON monthly_payout_items;
+DROP POLICY IF EXISTS loans_user_select ON loans;
+DROP POLICY IF EXISTS ledger_entries_user_select ON shadow_ledger_entries;
+DROP POLICY IF EXISTS ambassador_tasks_user_select ON ambassador_daily_tasks;
+DROP POLICY IF EXISTS bank_settings_user_select ON bank_settings;
+DROP POLICY IF EXISTS biometric_profiles_user_select ON biometric_profiles;
+
 DROP TABLE IF EXISTS monthly_payout_items;
 DROP TABLE IF EXISTS monthly_payout_batches;
 DROP TABLE IF EXISTS identity_mismatch_reviews;
@@ -175,6 +239,7 @@ DROP TABLE IF EXISTS ambassador_daily_tasks;
 DROP TABLE IF EXISTS bank_settings;
 DROP TABLE IF EXISTS biometric_profiles;
 
+DROP FUNCTION IF EXISTS app.current_user_id();
 DROP TYPE IF EXISTS review_decision;
 DROP TYPE IF EXISTS loan_status;
 DROP TYPE IF EXISTS ledger_entry_type;
