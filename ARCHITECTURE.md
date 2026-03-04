@@ -1,54 +1,126 @@
-# DinApp Architecture
+# DinApp "PNG Grade" Final System Architecture
 
-This document provides an overview of the DinApp system architecture, including the backend gateway, the frontend application, and the deployment strategy.
+This document replaces the previous architecture and defines the final unified DinApp model:
 
-## System Components
+- Unlimited Shadow Pool rewards
+- Biometric lending and anti-duplicate identity controls
+- 10 daily ambassador task engine
+- Full monthly payout lifecycle (15th batch)
 
-The DinApp system consists of three main components:
+## 1) Core Product Rules
 
-1. **Frontend:** A Next.js application that provides the user interface for the admin dashboard and the APK download page.
-2. **Backend Gateway:** A Go-based server running on Cloudflare Workers that acts as a gateway to the backend services and the R2 bucket for APK storage.
-3. **Cloudflare R2:** A Cloudflare R2 bucket used to store the DinApp APK files.
+| Feature | Final Rule |
+|---|---|
+| Membership | K150 one-time registration unlocks Ambassador status. |
+| Shadow Pool | DinTokens (DT) are minted by backend task engine only, pegged 1:1 to Kina. |
+| Ambassador Tasks | 10 daily share/invite tasks, payout K10.00 DT per verified referral. |
+| Terence Tax | Flat K0.50 fee on each transfer/payment/withdrawal event. |
+| Lending Loop | Instant loan issuance from admin interest pool, fixed 30% interest. |
+| Snatch Engine | Auto-deduct principal + 30% within 1 second whenever funds enter debtor wallet. |
+| Security | Biometric liveness + one-person-one-account controls. |
+| Payouts | 15th of month bulk payout; users can withdraw 100% eligible earnings. |
 
-## Backend Gateway
+## 2) High-Level Services
 
-The backend gateway is a Go application built to run on Cloudflare Workers. It provides a RESTful API for managing files and users.
+1. **Identity & Auth Service**
+   - User registration, face biometric enrollment, liveness verification.
+   - Duplicate detection using face hash + national identity metadata.
+   - Session + RBAC controls for user/admin operations.
 
-### Features
+2. **Task & Referral Engine**
+   - Tracks completion of up to 10 daily ambassador tasks.
+   - Verifies referrals and mints K10 DT reward per successful verification.
+   - Prevents self-referrals, multi-account abuse, and duplicate reward events.
 
-* **File Management:** The gateway provides endpoints for listing, uploading, downloading, and deleting files from the Cloudflare R2 bucket.
-* **User Management:** Placeholder endpoints for managing users.
-* **Authentication and Logging:** Middleware for authentication and request logging.
+3. **Shadow Ledger Service**
+   - Maintains token ledger in DT (1:1 display as Kina).
+   - Enforces immutable transaction entries (credit/debit/fee/loan).
+   - Restricts minting rights to service roles only.
 
-### Technology Stack
+4. **Lending & Snatch Service**
+   - Issues instant loans.
+   - Applies fixed 30% interest.
+   - Executes event-driven repayment sweep within 1 second of incoming funds.
 
-* **Language:** Go
-* **Framework:** Gorilla Mux (for routing)
-* **Deployment:** Cloudflare Workers
+5. **Wallet & Bank Settings Service**
+   - Stores bank profile: bank name, account name, account number, BSB.
+   - Handles `WITHDRAW FULL BALANCE` toggle for monthly payout inclusion.
+   - Flags account if bank account name conflicts with verified biometric identity.
 
-### API Endpoints
+6. **Monthly Payout Orchestrator**
+   - Runs on 15th and performs identity check, debt clearance, fee deductions.
+   - Generates KATS-compatible payout CSV.
+   - Separates user payout totals from admin profit totals.
 
-* `GET /api/v1/ping`: Health check endpoint.
-* `GET /api/v1/users`: Get a list of users.
-* `GET /api/v1/users/{id}`: Get a specific user.
-* `GET /api/v1/files`: List files in the R2 bucket.
-* `POST /api/v1/files/upload`: Upload a file to the R2 bucket.
-* `GET /api/v1/files/download/{filename}`: Download a file from the R2 bucket.
-* `DELETE /api/v1/files/delete/{filename}`: Delete a file from the R2 bucket.
+7. **Admin Finance Service**
+   - Tracks operator revenue from K0.50 fees and loan interest.
+   - Posts operator profit to Terence wallet during monthly close.
 
-## Frontend
+## 3) Wallet UX Requirements
 
-The frontend is a Next.js application that provides the following:
+The Wallet tab must include **Bank Settings** with:
 
-* **Admin Dashboard:** A dashboard for administrators to monitor the system, view statistics, and manage files.
-* **APK Download Page:** A public page where users can download the DinApp APK.
+- Bank Name (`BSP`, `Kina`, `Westpac`, `ANZ`)
+- Account Name
+- Account Number
+- BSB
+- `WITHDRAW FULL BALANCE` toggle
 
-## Deployment
+### Withdrawal Logic
 
-The entire application is designed to be deployed on the Cloudflare ecosystem.
+If `WITHDRAW FULL BALANCE = ON`, monthly batch logic adds:
 
-* **Backend Gateway:** Deployed as a Cloudflare Worker using `wrangler`. The `wrangler.toml` file in the root directory contains the configuration for the worker.
-* **Frontend:** The Next.js frontend can be deployed as a Cloudflare Pages application.
-* **APK Storage:** The APK files are stored in a Cloudflare R2 bucket.
+`eligible_balance = shadow_balance - outstanding_loan_total - monthly_withdrawal_tax`
 
-This architecture provides a scalable, secure, and cost-effective solution for hosting the DinApp application.
+Where monthly withdrawal tax includes at minimum the K0.50 withdrawal fee.
+
+## 4) Canonical 15th-Day Batch Flow
+
+The payout script must run in this order:
+
+1. **Identity Check**
+   - Validate biometric profile status and duplicate risk flags.
+2. **Debt Clearance**
+   - Deduct loan principal + 30% interest from shadow balances.
+3. **Tax Deduction**
+   - Apply K0.50 transaction/withdrawal fee policy.
+4. **CSV Generation**
+   - Export bank-ingestion CSV (KATS-compliant).
+5. **Admin Interest Settlement**
+   - Calculate all collected fees + loan interest and credit Terence wallet.
+
+## 5) Face Mismatch Handling Policy
+
+When face data does not match bank account name:
+
+1. **Auto-flag account**: set status to `UNDER_REVIEW`.
+2. **Freeze bank updates**: disable payout edits until review completes.
+3. **Soft hold on payout**: do not include user in 15th CSV while unresolved.
+4. **Manual review queue**: admin can request ID proof and selfie retry.
+5. **Decision outcomes**:
+   - `APPROVED`: unlock payouts and bank settings.
+   - `REJECTED`: keep frozen and require full re-verification or account closure.
+6. **Audit logging**: every mismatch check and admin action is immutable.
+
+## 6) Security & Data Integrity
+
+- PostgreSQL Row-Level Security (RLS) protects all user-owned records.
+- Only service roles can create reward-mint and system-settlement entries.
+- Strict ledger immutability: no update/delete on posted financial entries.
+- Biometric templates stored encrypted at rest.
+- All sensitive operations produce signed audit trail events.
+
+## 7) Deployment Strategy
+
+1. Register business entity (IPA certificate).
+2. Deploy backend on AWS/DigitalOcean with managed PostgreSQL.
+3. Enable encrypted backups and key management.
+4. Roll out referral campaign (Facebook + WhatsApp channels).
+
+## 8) Build Sequence (Recommended)
+
+1. **Database migration first** (schema, constraints, RLS, ledger primitives).
+2. Task engine and lending/snatch workers.
+3. Wallet UI and biometric onboarding interface.
+4. Monthly payout command + CSV integration testing.
+5. Admin review and fraud tooling.
